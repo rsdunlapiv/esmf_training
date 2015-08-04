@@ -53,6 +53,12 @@ This is intended to be used as an exercise.  See the README
 in that directory for more info.
 
 
+SimpleField
+===========
+An ESMF application showing how to create a 3D Grid and
+two Fields.
+
+
 SimpleMesh
 ==========
 An ESMF application showing how to create a Mesh on 4 PETs.
