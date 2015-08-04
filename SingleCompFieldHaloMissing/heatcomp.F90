@@ -66,6 +66,9 @@ contains
     !  Change the call below to add padding for a 1 cell width halo
     !  around the exclusive region in all directions.  Do this by
     !  setting the totalLWidth and totalUWidth parameters.
+    !
+    !  Ref manual page for ESMF_FieldCreate():
+    !  http://www.earthsystemmodeling.org/esmf_releases/last_built/ESMF_refdoc/node5.html#SECTION05036500000000000000
     !---------------------------------------------------------------------------
 
     ! Create an empty field on the 2D grid
