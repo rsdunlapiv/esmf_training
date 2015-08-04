@@ -5,6 +5,11 @@
 !  Creates the top Gridded Component and calls the Initialize, Run,
 !  and Finalize routines for it.
 !
+!  NOTE:
+!  This driver is only partially complete.  Look for FIXME throughout
+!  the file to find places where additional code is needed.
+!
+!
 
 program AppDriver
 
@@ -39,8 +44,10 @@ program AppDriver
   !  Initialize ESMF and set default calendar to ESMF_CALKIND_GREGORIAN.
   !---------------------------------------------------------------------------
 
-  !! FIXME
-
+  call ESMF_Initialize(defaultCalKind=ESMF_CALKIND_GREGORIAN, rc=localrc)
+  if (ESMF_LogFoundError(localrc, msg=ESMF_LOGERR_PASSTHRU, &
+    file=__FILE__, line=__LINE__)) &
+    call ESMF_Finalize(rc=localrc, endflag=ESMF_END_ABORT)
 
   !---------------------------------------------------------------------------
   !  Create the top Gridded Component and assign to the variable compGridded.
@@ -79,15 +86,27 @@ program AppDriver
   !  Assign to local variable clock.
   !----------------------------------------------------------------------------
 
-  !! FIXME
+  clock = ESMF_ClockCreate(timeStep, startTime, stopTime=stopTime, &
+    name="Application Clock", rc=localrc)
+  if (ESMF_LogFoundError(localrc, msg=ESMF_LOGERR_PASSTHRU, &
+    file=__FILE__, line=__LINE__)) &
+    call ESMF_Finalize(rc=localrc, endflag=ESMF_END_ABORT)
 
   !----------------------------------------------------------------------------
-  !  Create and initialize States to use for import and export from/to
+  !  Create and States to use for import and export from/to
   !  the child gridded component.
   !  Assign created states to local variables importState and exportState.
   !----------------------------------------------------------------------------
 
-  !! FIXME
+  importState = ESMF_StateCreate(name="atmImport", rc=localrc)
+  if (ESMF_LogFoundError(localrc, msg=ESMF_LOGERR_PASSTHRU, &
+    file=__FILE__, line=__LINE__)) &
+    call ESMF_Finalize(rc=localrc, endflag=ESMF_END_ABORT)
+
+  exportState = ESMF_StateCreate(name="atmExport", rc=localrc)
+  if (ESMF_LogFoundError(localrc, msg=ESMF_LOGERR_PASSTHRU, &
+    file=__FILE__, line=__LINE__)) &
+    call ESMF_Finalize(rc=localrc, endflag=ESMF_END_ABORT)
 
   !----------------------------------------------------------------------------
   !  Call compGridded's initialize method, passing it the importState,
@@ -154,6 +173,6 @@ program AppDriver
   !  Finalize the ESMF framework.
   !----------------------------------------------------------------------------
 
-  !! FIXME
+  call ESMF_Finalize()
 
 end program AppDriver
